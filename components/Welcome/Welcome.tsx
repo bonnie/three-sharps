@@ -1,18 +1,24 @@
 // adapted from https://github.com/mantinedev/mantine-next-template/tree/master/components/Welcome
 import { Title, Text, Anchor } from "@mantine/core";
 import useStyles from "./Welcome.styles";
+import { AnimatedLogo } from "@/components/AnimatedLogo/AnimatedLogo";
 
 export function Welcome() {
   const { classes } = useStyles();
 
+  const scaleY = {
+    in: { opacity: 0, transform: "scaleY(0)" },
+    out: { opacity: 1, transform: "scaleY(1)" },
+    common: { transformOrigin: "top" },
+    transitionProperty: "transform, opacity",
+  };
+
   return (
     <>
       <Title className={classes.title} align="center" mt={100}>
-        Welcome to{" "}
-        <Text inherit variant="gradient" component="span">
-          Mantine
-        </Text>
+        Welcome to Three Sharps
       </Title>
+      <AnimatedLogo />
       <Text
         color="dimmed"
         align="center"
@@ -21,13 +27,11 @@ export function Welcome() {
         mx="auto"
         mt="xl"
       >
-        This starter Next.js project includes a minimal setup for server side
-        rendering, if you want to learn more on Mantine + Next.js integration
-        follow{" "}
-        <Anchor href="https://mantine.dev/guides/next/" size="lg">
-          this guide
-        </Anchor>
-        . To get started edit index.tsx file.
+        JavaScript consulting specializing in React, front-end testing, and
+        employee training.
+      </Text>
+      <Text>
+        <Anchor href="https://bonnie.dev">Bonnie Schulkin</Anchor>, Principal
       </Text>
     </>
   );
