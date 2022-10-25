@@ -1,19 +1,23 @@
-import { strings } from "@/constants/strings";
-import { Image, Transition } from "@mantine/core";
-import { useEffect } from "react";
-import { useState } from "react";
+import { Image, Transition, useMantineColorScheme } from "@mantine/core";
+import { useEffect, useState } from "react";
 
-export const AnimatedLogo = () => {
+import { strings } from "@/constants/strings";
+
+export function AnimatedLogo() {
   const [opened, setOpened] = useState(false);
+  const { colorScheme } = useMantineColorScheme();
 
   const customScale = {
     in: { transform: "scale(1)" },
     out: { transform: "scale(0.9)" },
     common: { transformOrigin: "center" },
-    transitionProperty: "transform, opacity",
+    transitionProperty: "transform",
   };
 
+  // mark transition as "done" on component mount
   useEffect(() => setOpened(true), []);
+
+  const logoSrc = `/logo/three-sharps-${colorScheme}.svg`;
 
   return (
     <div style={{ width: 500, marginLeft: "auto", marginRight: "auto" }}>
@@ -24,13 +28,9 @@ export const AnimatedLogo = () => {
         timingFunction="ease"
       >
         {(styles) => (
-          <Image
-            style={styles}
-            src="/logo/three-sharps-light.svg"
-            alt={strings.logoAlt}
-          />
+          <Image style={styles} src={logoSrc} alt={strings.logoAlt} />
         )}
       </Transition>
     </div>
   );
-};
+}

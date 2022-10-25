@@ -1,19 +1,28 @@
+/* eslint-disable react/jsx-props-no-spreading */
 // adapted from https://github.com/mantinedev/mantine-next-template/blob/master/pages/_app.tsx
-import { useState } from "react";
-import NextApp, { AppProps, AppContext } from "next/app";
-import { getCookie, setCookie } from "cookies-next";
-import Head from "next/head";
 import {
-  MantineProvider,
   ColorScheme,
   ColorSchemeProvider,
+  MantineProvider,
 } from "@mantine/core";
+import { useColorScheme } from "@mantine/hooks";
 import { NotificationsProvider } from "@mantine/notifications";
+import { getCookie, setCookie } from "cookies-next";
+import NextApp, { AppContext, AppProps } from "next/app";
+import Head from "next/head";
+import { useState } from "react";
+
+import { colorSchemes, theme } from "@/styles/theme";
 
 export default function App(props: AppProps & { colorScheme: ColorScheme }) {
-  const { Component, pageProps } = props;
+  const { Component, pageProps, colorScheme: propsColorScheme } = props;
+
+  // hook will return either 'dark' or 'light' on client
+  // and always 'light' during ssr as window.matchMedia is not available
+  const preferredColorScheme = useColorScheme();
+
   const [colorScheme, setColorScheme] = useState<ColorScheme>(
-    props.colorScheme
+    propsColorScheme ?? preferredColorScheme,
   );
 
   const toggleColorScheme = (value?: ColorScheme) => {
@@ -28,7 +37,7 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   return (
     <>
       <Head>
-        <title>Mantine next example</title>
+        <title>Three Sharps Consluting</title>
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
@@ -41,7 +50,7 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
         toggleColorScheme={toggleColorScheme}
       >
         <MantineProvider
-          theme={{ colorScheme }}
+          theme={{ ...theme, ...colorSchemes[colorScheme] }}
           withGlobalStyles
           withNormalizeCSS
         >
@@ -56,6 +65,7 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
 
 App.getInitialProps = async (appContext: AppContext) => {
   const appProps = await NextApp.getInitialProps(appContext);
+
   return {
     ...appProps,
     colorScheme: getCookie("mantine-color-scheme", appContext.ctx) || "dark",
