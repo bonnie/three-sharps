@@ -1,6 +1,6 @@
 // adapted from https://github.com/mantinedev/mantine-next-template/tree/master/components/ColorSchemeToggle
 import { ActionIcon, Group, useMantineColorScheme } from "@mantine/core";
-import { IconSun, IconMoonStars } from "@tabler/icons";
+import { IconMoonStars, IconSun } from "@tabler/icons";
 
 export function ColorSchemeToggle() {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();

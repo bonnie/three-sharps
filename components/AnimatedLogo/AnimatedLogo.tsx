@@ -1,4 +1,5 @@
 import { Image, Transition, useMantineColorScheme } from "@mantine/core";
+import { useReducedMotion } from "@mantine/hooks";
 import { useEffect, useState } from "react";
 
 import { strings } from "@/constants/strings";
@@ -6,6 +7,7 @@ import { strings } from "@/constants/strings";
 export function AnimatedLogo() {
   const [opened, setOpened] = useState(false);
   const { colorScheme } = useMantineColorScheme();
+  const reduceMotion = useReducedMotion();
 
   const customScale = {
     in: { transform: "scale(1)" },
@@ -20,12 +22,19 @@ export function AnimatedLogo() {
   const logoSrc = `/logo/three-sharps-${colorScheme}.svg`;
 
   return (
-    <div style={{ width: 500, marginLeft: "auto", marginRight: "auto" }}>
+    <div
+      style={{
+        width: 500,
+        height: 320,
+        marginLeft: "auto",
+        marginRight: "auto",
+      }}
+    >
       <Transition
         mounted={opened}
         transition={customScale}
-        duration={500}
-        timingFunction="ease"
+        duration={reduceMotion ? 0 : 700}
+        timingFunction="easeOutBack"
       >
         {(styles) => (
           <Image style={styles} src={logoSrc} alt={strings.logoAlt} />

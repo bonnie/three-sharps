@@ -23,6 +23,7 @@
     "dayjs": "^1.11.6",
     "embla-carousel-react": "^7.0.3",
     "eslint": "^8.26.0",
+    "framer-motion": "^7.6.2",
     "next": "latest",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
