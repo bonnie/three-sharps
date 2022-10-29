@@ -24,6 +24,9 @@ export const theme: MantineThemeOverride = {
   black: "#080e11",
   activeStyles: { transform: "scale(0.95)" },
   loader: "dots",
+  other: {
+    navHeight: "60px",
+  },
 };
 
 const lightColorScheme: MantineThemeOverride = {
