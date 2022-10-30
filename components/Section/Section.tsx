@@ -10,7 +10,8 @@ import { useStyles } from "./Section.styles";
 export function Section({
   children,
   title,
-}: PropsWithChildren<{ title: string }>) {
+}: // eslint-disable-next-line react/require-default-props
+PropsWithChildren<{ title?: string }>) {
   const { classes } = useStyles();
 
   const rootRef = useRef(null);
@@ -38,7 +39,7 @@ export function Section({
   return (
     <section className={classes.contentSection} ref={ref}>
       {children}
-      <AnimatedTitle title={title} entry={entry} />
+      {title ? <AnimatedTitle title={title} entry={entry} /> : null}
     </section>
   );
 }

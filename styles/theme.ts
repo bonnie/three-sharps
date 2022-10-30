@@ -25,7 +25,7 @@ export const theme: MantineThemeOverride = {
   activeStyles: { transform: "scale(0.95)" },
   loader: "dots",
   other: {
-    navHeight: "60px",
+    navHeight: 60,
   },
 };
 

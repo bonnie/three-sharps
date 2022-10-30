@@ -1,22 +1,16 @@
 // adapted from https://codesandbox.io/s/intelligent-babycat-mlwm0?file=/src/App.tsx:0-1518
 
 import {
+  Box,
   Center,
+  Divider,
   Group,
   Header,
   Image,
   MediaQuery,
   useMantineTheme,
 } from "@mantine/core";
-import {
-  IconCalendarStats,
-  IconDeviceDesktopAnalytics,
-  IconFingerprint,
-  IconGauge,
-  IconHome2,
-  IconSettings,
-  IconUser,
-} from "@tabler/icons";
+import { IconLego, IconSend } from "@tabler/icons";
 import { useState } from "react";
 
 import { ColorSchemeToggle } from "@/components/ColorSchemeToggle/ColorSchemeToggle";
@@ -24,13 +18,8 @@ import { ColorSchemeToggle } from "@/components/ColorSchemeToggle/ColorSchemeTog
 import { NavbarLink } from "./NavbarLink";
 
 const navData = [
-  { icon: IconHome2, label: "Home" },
-  { icon: IconGauge, label: "Dashboard" },
-  { icon: IconDeviceDesktopAnalytics, label: "Analytics" },
-  { icon: IconCalendarStats, label: "Releases" },
-  { icon: IconUser, label: "Account" },
-  { icon: IconFingerprint, label: "Security" },
-  { icon: IconSettings, label: "Settings" },
+  { icon: IconLego, label: "About" },
+  { icon: IconSend, label: "Contact" },
 ];
 
 // the name "Navbar" is already used as a Mantine component
@@ -38,7 +27,7 @@ export function ThreeSharpsNavbar() {
   const theme = useMantineTheme();
   const { navHeight } = theme.other;
 
-  const [active, setActive] = useState(0);
+  const [active, setActive] = useState(navData.length); // start without active link
 
   const links = navData.map((link, index) => (
     <NavbarLink
@@ -51,21 +40,24 @@ export function ThreeSharpsNavbar() {
   ));
 
   return (
-    <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
+    <MediaQuery smallerThan="xs" styles={{ display: "none" }}>
       <Header fixed height={navHeight}>
-        <Group styles={{ width: "100%" }}>
-          <Center>
-            <Image
-              sx={{ height: navHeight }}
-              p={5}
-              src="/logo/sharps.svg"
-              alt="Three musical sharp signs in the configuration for A major"
-            />
-          </Center>
-          <Group position="left" spacing={2}>
+        <Group position="apart" styles={{ width: "100%" }}>
+          <Group>
+            <Center mr={20}>
+              <Image
+                width={navHeight}
+                p={5}
+                src="/logo/sharps.svg"
+                alt="Three musical sharp signs in the configuration for A major"
+              />
+            </Center>
+            <Divider orientation="vertical" />
             {links}
           </Group>
-          <ColorSchemeToggle />
+          <Box mr={5}>
+            <ColorSchemeToggle />
+          </Box>
         </Group>
       </Header>
     </MediaQuery>

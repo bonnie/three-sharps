@@ -1,4 +1,4 @@
-import { Tooltip, UnstyledButton } from "@mantine/core";
+import { Text } from "@mantine/core";
 import { TablerIcon } from "@tabler/icons";
 
 import { useStyles } from "./NavbarLink.styles";
@@ -23,13 +23,22 @@ export function NavbarLink({
 }: NavbarLinkProps) {
   const { classes, cx } = useStyles();
   return (
-    <Tooltip label={label} position="right" transitionDuration={0}>
-      <UnstyledButton
-        onClick={onClick}
-        className={cx(classes.link, { [classes.active]: active })}
-      >
-        <Icon stroke={1.5} />
-      </UnstyledButton>
-    </Tooltip>
+    // <Tooltip label={label} position="right" transitionDuration={0}>
+    //   <UnstyledButton
+    //     onClick={onClick}
+    //     className={cx(classes.link, { [classes.active]: active })}
+    //   >
+    //     <Icon stroke={1.5} />
+    //   </UnstyledButton>
+    // </Tooltip>
+
+    // TODO: center text
+    // TODO: icons for small/xs media?
+    <Text
+      className={cx(classes.link, { [classes.active]: active })}
+      onClick={onClick}
+    >
+      {label}
+    </Text>
   );
 }

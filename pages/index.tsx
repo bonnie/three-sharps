@@ -1,4 +1,5 @@
 import { AppShell, Box, useMantineTheme } from "@mantine/core";
+import { IconArrowUpCircle } from "@tabler/icons";
 
 import { About } from "@/components/About/About";
 import { ColorSchemeToggle } from "@/components/ColorSchemeToggle/ColorSchemeToggle";

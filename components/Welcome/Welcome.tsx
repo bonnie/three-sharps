@@ -5,7 +5,7 @@ import { Section } from "@/components/Section/Section";
 
 export function Welcome() {
   return (
-    <Section title="Welcome">
+    <Section>
       <AnimatedLogo />
       <Title order={1} mt={8} align="center">
         JavaScript consulting

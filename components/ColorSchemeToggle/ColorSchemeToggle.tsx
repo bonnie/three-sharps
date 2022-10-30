@@ -5,8 +5,11 @@ import { IconMoonStars, IconSun } from "@tabler/icons";
 export function ColorSchemeToggle() {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
 
+  // TODO animate on mouseover
+  // TODO make round
+  // TODO adjust colors
   return (
-    <Group position="center" mt="xl">
+    <Group>
       <ActionIcon
         onClick={() => toggleColorScheme()}
         size="xl"
