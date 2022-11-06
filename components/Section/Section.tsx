@@ -2,7 +2,7 @@
 // code adapted from https://dev.to/chaituknag/animate-on-scroll-in-react-35e5
 
 import { useIntersection } from "@mantine/hooks";
-import { PropsWithChildren, useRef } from "react";
+import { MutableRefObject, PropsWithChildren } from "react";
 
 import { AnimatedTitle } from "./AnimatedTitle";
 import { useStyles } from "./Section.styles";
@@ -10,12 +10,15 @@ import { useStyles } from "./Section.styles";
 export function Section({
   children,
   title,
+  rootRef,
 }: // eslint-disable-next-line react/require-default-props
-PropsWithChildren<{ title?: string }>) {
+PropsWithChildren<{
+  title: string | null;
+  rootRef: MutableRefObject<HTMLDivElement>;
+}>) {
   const { classes } = useStyles();
 
-  const rootRef = useRef(null);
-  const { ref, entry } = useIntersection({
+  const { ref: intersectionRef, entry } = useIntersection({
     root: rootRef.current,
     threshold: 1,
   });
@@ -37,7 +40,7 @@ PropsWithChildren<{ title?: string }>) {
   //   ));
 
   return (
-    <section className={classes.contentSection} ref={ref}>
+    <section className={classes.contentSection} ref={intersectionRef}>
       {children}
       {title ? <AnimatedTitle title={title} entry={entry} /> : null}
     </section>

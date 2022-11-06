@@ -1,11 +1,12 @@
 import { Text, Title } from "@mantine/core";
+import { MutableRefObject } from "react";
 
 import { AnimatedLogo } from "@/components/AnimatedLogo/AnimatedLogo";
 import { Section } from "@/components/Section/Section";
 
-export function Welcome() {
+export function Welcome({ ref }: { ref: MutableRefObject<HTMLDivElement> }) {
   return (
-    <Section>
+    <Section title={null} rootRef={ref}>
       <AnimatedLogo />
       <Title order={1} mt={8} align="center">
         JavaScript consulting

@@ -16,16 +16,33 @@ import { useState } from "react";
 import { ColorSchemeToggle } from "@/components/ColorSchemeToggle/ColorSchemeToggle";
 
 import { NavbarLink } from "./NavbarLink";
-
-const navData = [
-  { icon: IconLego, label: "About" },
-  { icon: IconSend, label: "Contact" },
-];
+import { ScrollIntoView } from "./types";
 
 // the name "Navbar" is already used as a Mantine component
-export function ThreeSharpsNavbar() {
+export function ThreeSharpsNavbar({
+  scrolls,
+}: {
+  scrolls: {
+    aboutScrollIntoView: ScrollIntoView;
+    contactScrollIntoView: ScrollIntoView;
+    welcomeScrollIntoView: ScrollIntoView;
+  };
+}) {
   const theme = useMantineTheme();
   const { navHeight } = theme.other;
+
+  const navData = [
+    {
+      icon: IconLego,
+      label: "About",
+      scrollIntoView: scrolls.aboutScrollIntoView,
+    },
+    {
+      icon: IconSend,
+      label: "Contact",
+      scrollIntoView: scrolls.contactScrollIntoView,
+    },
+  ];
 
   const [active, setActive] = useState(navData.length); // start without active link
 
@@ -35,7 +52,8 @@ export function ThreeSharpsNavbar() {
       {...link}
       key={link.label}
       active={index === active}
-      onClick={() => setActive(index)}
+      setActive={() => setActive(index)}
+      scrollIntoView={link.scrollIntoView}
     />
   ));
 

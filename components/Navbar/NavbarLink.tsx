@@ -2,26 +2,33 @@ import { Text } from "@mantine/core";
 import { TablerIcon } from "@tabler/icons";
 
 import { useStyles } from "./NavbarLink.styles";
+import { ScrollIntoView } from "./types";
 
 interface NavbarLinkProps {
   icon: TablerIcon;
   label: string;
   active?: boolean;
-  onClick?(): void;
+  setActive: () => void;
+  scrollIntoView: ScrollIntoView;
 }
 
 NavbarLink.defaultProps = {
   active: false,
-  onClick() {},
 };
 
 export function NavbarLink({
   icon: Icon,
   label,
   active,
-  onClick,
+  setActive,
+  scrollIntoView,
 }: NavbarLinkProps) {
   const { classes, cx } = useStyles();
+  const onClick = () => {
+    setActive();
+    scrollIntoView({ alignment: "start" });
+  };
+
   return (
     // <Tooltip label={label} position="right" transitionDuration={0}>
     //   <UnstyledButton
