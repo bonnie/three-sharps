@@ -5,7 +5,7 @@ import { useStyles } from "./NavbarLink.styles";
 import { ScrollIntoView } from "./types";
 
 interface NavbarLinkProps {
-  icon: TablerIcon;
+  icon: TablerIcon | null;
   label: string;
   active?: boolean;
   setActive: () => void;
@@ -17,7 +17,7 @@ NavbarLink.defaultProps = {
 };
 
 export function NavbarLink({
-  icon: Icon,
+  icon,
   label,
   active,
   setActive,

@@ -1,12 +1,15 @@
 import { Text, Title } from "@mantine/core";
-import { MutableRefObject } from "react";
+import { FunctionComponent, PropsWithChildren } from "react";
 
 import { AnimatedLogo } from "@/components/AnimatedLogo/AnimatedLogo";
-import { Section } from "@/components/Section/Section";
 
-export function Welcome({ ref }: { ref: MutableRefObject<HTMLDivElement> }) {
+export function Welcome({
+  Wrapper,
+}: {
+  Wrapper: FunctionComponent<PropsWithChildren<{}>>;
+}) {
   return (
-    <Section title={null} rootRef={ref}>
+    <Wrapper>
       <AnimatedLogo />
       <Title order={1} mt={8} align="center">
         JavaScript consulting
@@ -22,6 +25,6 @@ export function Welcome({ ref }: { ref: MutableRefObject<HTMLDivElement> }) {
       >
         front-end testing / React / individual and corporate training
       </Text>
-    </Section>
+    </Wrapper>
   );
 }

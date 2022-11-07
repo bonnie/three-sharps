@@ -10,7 +10,7 @@ import {
   MediaQuery,
   useMantineTheme,
 } from "@mantine/core";
-import { IconLego, IconSend } from "@tabler/icons";
+import { TablerIcon } from "@tabler/icons";
 import { useState } from "react";
 
 import { ColorSchemeToggle } from "@/components/ColorSchemeToggle/ColorSchemeToggle";
@@ -20,42 +20,35 @@ import { ScrollIntoView } from "./types";
 
 // the name "Navbar" is already used as a Mantine component
 export function ThreeSharpsNavbar({
-  scrolls,
+  navData,
 }: {
-  scrolls: {
-    aboutScrollIntoView: ScrollIntoView;
-    contactScrollIntoView: ScrollIntoView;
-    welcomeScrollIntoView: ScrollIntoView;
-  };
+  navData: Record<
+    string,
+    {
+      title: string;
+      scrollIntoView: ScrollIntoView;
+      icon: TablerIcon | null;
+    }
+  >;
 }) {
   const theme = useMantineTheme();
   const { navHeight } = theme.other;
+  const [active, setActive] = useState(Object.keys(navData).length); // start without active link
 
-  const navData = [
-    {
-      icon: IconLego,
-      label: "About",
-      scrollIntoView: scrolls.aboutScrollIntoView,
-    },
-    {
-      icon: IconSend,
-      label: "Contact",
-      scrollIntoView: scrolls.contactScrollIntoView,
-    },
-  ];
-
-  const [active, setActive] = useState(navData.length); // start without active link
-
-  const links = navData.map((link, index) => (
-    <NavbarLink
-      // eslint-disable-next-line react/jsx-props-no-spreading
-      {...link}
-      key={link.label}
-      active={index === active}
-      setActive={() => setActive(index)}
-      scrollIntoView={link.scrollIntoView}
-    />
-  ));
+  const links = Object.keys(navData).map((navKey, index) => {
+    const link = navData[navKey];
+    return (
+      <NavbarLink
+        // eslint-disable-next-line react/jsx-props-no-spreading
+        {...link}
+        label={link.title}
+        key={navKey}
+        active={index === active}
+        setActive={() => setActive(index)}
+        scrollIntoView={link.scrollIntoView}
+      />
+    );
+  });
 
   return (
     <MediaQuery smallerThan="xs" styles={{ display: "none" }}>

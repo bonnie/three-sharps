@@ -1,12 +1,14 @@
 import { Text } from "@mantine/core";
-import { MutableRefObject } from "react";
+import { FunctionComponent, PropsWithChildren } from "react";
 
-import { Section } from "@/components/Section/Section";
-
-export function Contact({ ref }: { ref: MutableRefObject<HTMLDivElement> }) {
+export function Contact({
+  Wrapper,
+}: {
+  Wrapper: FunctionComponent<PropsWithChildren<{}>>;
+}) {
   return (
-    <Section title="Contact" rootRef={ref}>
+    <Wrapper>
       <Text>Contact form here</Text>
-    </Section>
+    </Wrapper>
   );
 }
