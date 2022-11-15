@@ -1,8 +1,8 @@
-import { useIntersection, useScrollIntoView } from "@mantine/hooks";
+import { useScrollIntoView } from "@mantine/hooks";
 import { FunctionComponent, PropsWithChildren } from "react";
 
-import { AnimatedTitle } from "@/components/Section/AnimatedTitle";
 import { useStyles } from "@/components/Section/Section.styles";
+import { SectionTitle } from "@/components/Section/SectionTitle";
 
 import { ScrollIntoView } from "../types";
 
@@ -10,28 +10,24 @@ export const useNavSection: (title: string) => {
   scrollIntoView: ScrollIntoView;
   Section: FunctionComponent<PropsWithChildren<{}>>;
 } = (title) => {
-  const { scrollIntoView, targetRef } = useScrollIntoView<HTMLDivElement>();
+  const { scrollIntoView, targetRef } = useScrollIntoView<HTMLDivElement>({
+    duration: 0,
+    offset: -20,
+  });
 
   function Section({ children }: PropsWithChildren<{}>) {
     const { classes } = useStyles();
 
-    const { ref: intersectionRef, entry } = useIntersection({
-      root: targetRef.current,
-      threshold: 1,
-    });
-
     return (
       <section className={classes.contentSection} ref={targetRef}>
+        {title ? <SectionTitle title={title} /> : null}
         {children}
-        {title ? <AnimatedTitle title={title} entry={entry} /> : null}
       </section>
     );
   }
 
   return {
-    scrollIntoView: () => {
-      scrollIntoView();
-    },
+    scrollIntoView,
     Section,
   };
 };

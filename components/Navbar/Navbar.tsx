@@ -10,6 +10,7 @@ import {
   MediaQuery,
   useMantineTheme,
 } from "@mantine/core";
+import { useWindowScroll } from "@mantine/hooks";
 import { TablerIcon } from "@tabler/icons";
 import { useState } from "react";
 
@@ -34,6 +35,7 @@ export function ThreeSharpsNavbar({
   const theme = useMantineTheme();
   const { navHeight } = theme.other;
   const [active, setActive] = useState(Object.keys(navData).length); // start without active link
+  const [, scrollTo] = useWindowScroll();
 
   const links = Object.keys(navData).map((navKey, index) => {
     const link = navData[navKey];
@@ -61,6 +63,10 @@ export function ThreeSharpsNavbar({
                 p={5}
                 src="/logo/sharps.svg"
                 alt="Three musical sharp signs in the configuration for A major"
+                onClick={() => {
+                  setActive(Object.keys(navData).length);
+                  scrollTo({ x: 0, y: 0 });
+                }}
               />
             </Center>
             <Divider orientation="vertical" />

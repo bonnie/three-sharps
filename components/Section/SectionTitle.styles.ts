@@ -9,7 +9,6 @@ export const useStyles = createStyles((theme) => ({
     justifyContent: "center",
     alignItems: "flex-start",
     flexDirection: "column",
-    margin: "20px",
     padding: "20px",
     fontSize: "1.5em",
     color:
@@ -23,16 +22,4 @@ export const useStyles = createStyles((theme) => ({
       theme.colorScheme === "dark" ? theme.colors.blue[2] : theme.colors.blue[7]
     }`,
   },
-  //   titleText: {
-  //     margin: 0,
-  //     textTransform: "lowercase",
-  //     fontWeight: "normal",
-  //     fontSize: "8vw",
-  //     position: "absolute",
-  //     bottom: "6vmax",
-  //     left: 0,
-  //     paddingLeft: "6vmax",
-  //     zIndex: 1000,
-  //     lineHeight: 0.8,
-  //   },
 }));

@@ -26,7 +26,7 @@ export function NavbarLink({
   const { classes, cx } = useStyles();
   const onClick = () => {
     setActive();
-    scrollIntoView({ alignment: "start" });
+    scrollIntoView({ alignment: "end" });
   };
 
   return (

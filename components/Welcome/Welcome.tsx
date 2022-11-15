@@ -1,15 +1,12 @@
 import { Text, Title } from "@mantine/core";
-import { FunctionComponent, PropsWithChildren } from "react";
 
 import { AnimatedLogo } from "@/components/AnimatedLogo/AnimatedLogo";
+import { useStyles } from "@/components/Section/Section.styles";
 
-export function Welcome({
-  Wrapper,
-}: {
-  Wrapper: FunctionComponent<PropsWithChildren<{}>>;
-}) {
+export function Welcome() {
+  const { classes } = useStyles();
   return (
-    <Wrapper>
+    <section className={classes.contentSection}>
       <AnimatedLogo />
       <Title order={1} mt={8} align="center">
         JavaScript consulting
@@ -25,6 +22,6 @@ export function Welcome({
       >
         front-end testing / React / individual and corporate training
       </Text>
-    </Wrapper>
+    </section>
   );
 }
