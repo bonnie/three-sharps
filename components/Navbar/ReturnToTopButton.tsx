@@ -1,3 +1,4 @@
+import { ActionIcon } from "@mantine/core";
 import { useWindowScroll } from "@mantine/hooks";
 import { IconArrowUpCircle } from "@tabler/icons";
 
@@ -9,13 +10,17 @@ export function ReturnToTopButton() {
   const { classes } = useStyles();
   const returnToTop = useReturnToTop();
 
-  const hiddenClass = scroll.y < 20 ? classes.returnIconHidden : "";
+  const hiddenClass = scroll.y < 20 ? classes.returnButtonHidden : "";
 
   return (
-    <IconArrowUpCircle
+    <ActionIcon
+      size="xl"
+      variant="gradient"
+      radius="xl"
+      className={`${classes.returnButton} ${hiddenClass}`}
       onClick={returnToTop}
-      className={`${classes.returnIcon} ${hiddenClass}`}
-      size={36}
-    />
+    >
+      <IconArrowUpCircle size="xl" stroke="1.25px" />
+    </ActionIcon>
   );
 }
