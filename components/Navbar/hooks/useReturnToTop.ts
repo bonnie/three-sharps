@@ -1,6 +1,13 @@
-import { useWindowScroll } from "@mantine/hooks";
+import { useReducedMotion, useWindowScroll } from "@mantine/hooks";
 
 export function useReturnToTop() {
+  const reducedMotion = useReducedMotion();
   const [, scrollTo] = useWindowScroll();
-  return () => scrollTo({ x: 0, y: 0 });
+  return () => {
+    if (reducedMotion) {
+      // TODO: don't animate
+    } else {
+      scrollTo({ x: 0, y: 0 });
+    }
+  };
 }

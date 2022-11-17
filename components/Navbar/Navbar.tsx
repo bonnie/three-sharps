@@ -10,12 +10,12 @@ import {
   MediaQuery,
   useMantineTheme,
 } from "@mantine/core";
-import { useWindowScroll } from "@mantine/hooks";
 import { TablerIcon } from "@tabler/icons";
 import { useState } from "react";
 
 import { ColorSchemeToggle } from "@/components/ColorSchemeToggle/ColorSchemeToggle";
 
+import { useReturnToTop } from "./hooks/useReturnToTop";
 import { NavbarLink } from "./NavbarLink";
 import { ScrollIntoView } from "./types";
 
@@ -35,7 +35,7 @@ export function ThreeSharpsNavbar({
   const theme = useMantineTheme();
   const { navHeight } = theme.other;
   const [active, setActive] = useState(Object.keys(navData).length); // start without active link
-  const [, scrollTo] = useWindowScroll();
+  const returnToTop = useReturnToTop();
 
   const links = Object.keys(navData).map((navKey, index) => {
     const link = navData[navKey];
@@ -63,10 +63,7 @@ export function ThreeSharpsNavbar({
                 p={5}
                 src="/logo/sharps.svg"
                 alt="Three musical sharp signs in the configuration for A major"
-                onClick={() => {
-                  setActive(Object.keys(navData).length);
-                  scrollTo({ x: 0, y: 0 });
-                }}
+                onClick={returnToTop}
               />
             </Center>
             <Divider orientation="vertical" />
@@ -80,58 +77,3 @@ export function ThreeSharpsNavbar({
     </MediaQuery>
   );
 }
-
-// import { useState } from "react";
-// import {
-//   createStyles,
-//   MantineProvider,
-//   AppShell,
-//   Header,
-//   Navbar,
-//   Burger,
-//   MediaQuery,
-//   Anchor
-// } from "@mantine/core";
-
-// export default function App() {
-//   const { classes } = useStyles();
-//   const [opened, setOpened] = useState(false);
-//   return (
-//     <MantineProvider withGlobalStyles withNormalizeCSS>
-//       <AppShell
-//         fixed
-//         navbarOffsetBreakpoint="sm"
-//         header={
-//           <Header height={50}>
-//             <MediaQuery largerThan="sm" styles={{ display: "none" }}>
-//               <Burger
-//                 opened={opened}
-//                 onClick={() => setOpened((o) => !o)}
-//                 size="sm"
-//                 mr="xl"
-//               />
-//             </MediaQuery>
-//             <div className={classes.links}>
-//               <Anchor>Home</Anchor>
-//               <Anchor>Features</Anchor>
-//               <Anchor>Pricing</Anchor>
-//             </div>
-//           </Header>
-//         }
-//         navbar={
-//           <Navbar
-//             className={classes.navbar}
-//             width={{ base: "100%", sm: 0 }}
-//             hidden={!opened}
-//           >
-//             <Anchor>Home</Anchor>
-//             <Anchor>Features</Anchor>
-//             <Anchor>Pricing</Anchor>
-//           </Navbar>
-//         }
-//       >
-//         App
-//       </AppShell>
-//     </MantineProvider>
-//   );
-// }

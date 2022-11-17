@@ -11,6 +11,7 @@ export const useStyles = createStyles((theme) => ({
     flexDirection: "column",
     padding: "20px",
     fontSize: "1.5em",
+    letterSpacing: "1px",
     color:
       theme.colorScheme === "dark"
         ? theme.colors.blue[2]

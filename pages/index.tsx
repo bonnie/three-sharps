@@ -1,11 +1,11 @@
 import { AppShell, Box, useMantineTheme } from "@mantine/core";
-import { IconArrowUpCircle, IconLego, IconMail } from "@tabler/icons";
+import { IconLego, IconMail } from "@tabler/icons";
 
 import { About } from "@/components/About/About";
-import { ColorSchemeToggle } from "@/components/ColorSchemeToggle/ColorSchemeToggle";
 import { Contact } from "@/components/Contact/Contact";
 import { useNavSection } from "@/components/Navbar/hooks/useNavSection";
 import { ThreeSharpsNavbar } from "@/components/Navbar/Navbar";
+import { ReturnToTopButton } from "@/components/Navbar/ReturnToTopButton";
 import { Welcome } from "@/components/Welcome/Welcome";
 
 const aboutNavTitle = "About";
@@ -42,8 +42,8 @@ export default function HomePage() {
         <Welcome />
         <About Wrapper={aboutNavData.Section} />
         <Contact Wrapper={contactNavData.Section} />
-        <ColorSchemeToggle />
       </Box>
+      <ReturnToTopButton />
     </AppShell>
   );
 }

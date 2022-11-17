@@ -3,7 +3,7 @@
 
 import { Box, Title } from "@mantine/core";
 
-import { useStyles } from "./AnimatedTitle.styles";
+import { useStyles } from "./SectionTitle.styles";
 
 export function SectionTitle({ title }: { title: string }) {
   const { classes } = useStyles();
