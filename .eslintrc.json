@@ -26,41 +26,71 @@
     "jest": true
   },
   "rules": {
+    // warn if you import something that's not used
     "import/no-extraneous-dependencies": [2, { "devDependencies": true }],
+    // don't require prop-types for react components (not necessary for typescript)
     "react/prop-types": ["off"],
+    // only allow JSX in .tsx and .jsx files
     "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".jsx"] }],
+    // don't allow filename extensions when specifying import paths
     "import/extensions": ["error", "never"],
+    // don't prefer default export
     "import/prefer-default-export": 0,
+    // allow anonymous default export
     "import/no-anonymous-default-export": 0,
+    // warn if there's an unresolved import module
     "import/no-unresolved": 2,
+    // don't sort imports based on these rules
     "sort-imports": "off",
+    // don't order imports based on these rules
     "import/order": "off",
+    // allow blocks to contain variables with same name as surrounding scope
     "no-shadow": "off",
+    // allow variable use before the variable is defined
     "no-use-before-define": "off",
+    // trigger error for violation of react rules of hooks
     "react-hooks/rules-of-hooks": "error",
+    // warn if react hooks dependencies have left out a variable
     "react-hooks/exhaustive-deps": "warn",
+    // allow an array index as a key in an array of components
     "react/no-array-index-key": "off",
+    // do not require import of React in order to use jsx
     "react/react-in-jsx-scope": "off",
+    // allow multiple JSX expressions on a single line
     "react/jsx-one-expression-per-line": "off",
+    // allow prettier to determine where JSX curly braces will go
     "react/jsx-curly-newline": "off",
+    // allow prettier to determine quotes
     "quotes": "off",
+    // if there's a multi-line series of items with commas,
+    // raise an error if the last line doesn't have a trailing comma
     "comma-dangle": ["error", "always-multiline"],
+    // put spaces in between curly braces and its contents
     "object-curly-spacing": 1,
+    // do not put spaces between square brackets and its contents
     "array-bracket-spacing": 1,
-    "no-unused-vars": ["warn", { "argsIgnorePattern": "/?$" }],
+    // warn if variables are unused, except for ordered function
+    // arguments that come before an argument that is used
+    "no-unused-vars": ["warn", { "args": "after-used" }],
+    // warn on these prettier conditions
     "prettier/prettier": [
       "warn",
       {
-        "printWidth": 80,
-        "singleQuote": false,
-        "trailingComma": "all",
-        "endOfLine": "auto"
+        "printWidth": 80, // line longer than 80 characters
+        "singleQuote": false, // use double quotes, not single
+        "trailingComma": "all", // require trailing commas
+        "endOfLine": "auto" // automatically detect end-of-line character
       }
     ],
+    // require exports to be sorted
     "simple-import-sort/exports": "error",
+    // warn if imports are not sorted
     "simple-import-sort/imports": [
       "warn",
       {
+        // group imports according to how they start; this will
+        // separate external modules from internal modules, including
+        // internal modules starting with `@` if specified in tsconfig
         "groups": [["^\\u0000", "^.prisma"], ["^@?\\w"], ["^"], ["^\\."]]
       }
     ]
@@ -69,18 +99,23 @@
     // Only uses Testing Library lint rules in *jest* (not cypress) test files
     {
       "files": ["**/__tests__/**/?(*.)+(spec|test).[jt]s?(x)"],
-      "extends": ["plugin:testing-library/react"],
+      "extends": [
+        "plugin:testing-library/react",
+        "plugin:jest-dom/recommended"
+      ],
       "rules": {
-        "testing-library/await-async-query": "error",
-        "testing-library/no-await-sync-query": "error",
-        "jest-dom/prefer-checked": "error",
-        "jest-dom/prefer-enabled-disabled": "error",
-        "jest-dom/prefer-required": "error",
-        "jest-dom/prefer-to-have-attribute": "error",
+        // Suggest using explicit assertions rather than standalone queries
+        "testing-library/prefer-explicit-assert": "error",
+        // Suggest using userEvent over fireEvent for simulating user interactions
+        "testing-library/prefer-user-event": "error",
+        //Use waitFor instead of deprecated wait methods
+        "jest-dom/prefer-wait-for": "error",
+        // allow parameter reassignment
         "no-param-reassign": "off"
       }
     },
     {
+      // use cypress linting rules for cypress files
       "files": ["cypress/**/?(*.)+(spec|test).[jt]s?(x)", "cypress/support/*"],
       "extends": ["plugin:cypress/recommended"]
     }
