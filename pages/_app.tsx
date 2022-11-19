@@ -37,7 +37,7 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   return (
     <>
       <Head>
-        <title>Three Sharps Consluting</title>
+        <title>Three Sharps Consulting</title>
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
