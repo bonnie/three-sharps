@@ -1,4 +1,4 @@
-import { AnchorStylesParams, MantineThemeOverride } from "@mantine/core";
+import { MantineThemeOverride } from "@mantine/core";
 
 export const theme: MantineThemeOverride = {
   headings: {
@@ -35,7 +35,7 @@ const lightColorScheme: MantineThemeOverride = {
   components: {
     Anchor: {
       // Subscribe to theme and component params
-      styles: (theme, params: AnchorStylesParams) => ({
+      styles: (theme) => ({
         root: {
           color: theme.colors.blue[5],
           fontWeight: 600,
@@ -65,7 +65,7 @@ const darkColorScheme: MantineThemeOverride = {
   components: {
     Anchor: {
       // Subscribe to theme and component params
-      styles: (theme, params: AnchorStylesParams) => ({
+      styles: (theme) => ({
         root: {
           color: theme.colors.blue[2],
           fontWeight: 600,

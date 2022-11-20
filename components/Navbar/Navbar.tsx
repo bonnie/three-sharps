@@ -54,7 +54,7 @@ export function ThreeSharpsNavbar({
 
   return (
     <MediaQuery smallerThan="xs" styles={{ display: "none" }}>
-      <Header fixed height={navHeight}>
+      <Header fixed height={navHeight} mx="10px">
         <Group position="apart" styles={{ width: "100%" }}>
           <Group>
             <Center mr={20}>
@@ -69,9 +69,7 @@ export function ThreeSharpsNavbar({
             <Divider orientation="vertical" />
             {links}
           </Group>
-          <Box mr={5}>
-            <ColorSchemeToggle />
-          </Box>
+          <ColorSchemeToggle />
         </Group>
       </Header>
     </MediaQuery>

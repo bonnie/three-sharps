@@ -24,15 +24,4 @@ export const useStyles = createStyles((theme) => ({
           : theme.colors.gray[0],
     },
   },
-
-  active: {
-    "&, &:hover": {
-      backgroundColor: theme.fn.variant({
-        variant: "light",
-        color: theme.primaryColor,
-      }).background,
-      color: theme.fn.variant({ variant: "light", color: theme.primaryColor })
-        .color,
-    },
-  },
 }));
