@@ -1,7 +1,6 @@
 // adapted from https://codesandbox.io/s/intelligent-babycat-mlwm0?file=/src/App.tsx:0-1518
 
 import {
-  Box,
   Center,
   Divider,
   Group,
