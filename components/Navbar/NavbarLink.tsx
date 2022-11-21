@@ -30,21 +30,9 @@ export function NavbarLink({
   };
 
   return (
-    // <Tooltip label={label} position="right" transitionDuration={0}>
-    //   <UnstyledButton
-    //     onClick={onClick}
-    //     className={cx(classes.link, { [classes.active]: active })}
-    //   >
-    //     <Icon stroke={1.5} />
-    //   </UnstyledButton>
-    // </Tooltip>
-
     // TODO: center text
     // TODO: icons for small/xs media?
-    <Text
-      className={cx(classes.link, { [classes.active]: active })}
-      onClick={onClick}
-    >
+    <Text className={cx(classes.link)} onClick={onClick}>
       {label}
     </Text>
   );

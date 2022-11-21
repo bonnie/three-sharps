@@ -10,7 +10,7 @@ export function SectionTitle({ title }: { title: string }) {
 
   return (
     <Box className={`${classes.titleText} ${classes.titleBorder}`}>
-      <Title>{title}</Title>
+      <Title variant="gradient">{title}</Title>
     </Box>
   );
 }

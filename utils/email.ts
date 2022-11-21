@@ -32,12 +32,13 @@ export const sendEmail = async ({
   }
 
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+  const GREETING = `Hello, ${originatorName},`;
 
-  const emailText = `${THANK_YOU_MESSAGE}\n----\n${body}`;
-  const emailHtml = `<p>${THANK_YOU_MESSAGE}</p><hr />${body.replace(
+  const emailText = `${GREETING}\n${THANK_YOU_MESSAGE}\n----\n${body}`;
+  const emailHtml = `<p>${GREETING}</p><p>${THANK_YOU_MESSAGE}</p><hr /><p>${body.replace(
     "\n",
-    "<br /><br />",
-  )}`;
+    "</p><p>",
+  )}</p>`;
 
   const msg = {
     to: originatorEmail,
@@ -45,7 +46,10 @@ export const sendEmail = async ({
       process.env.THREE_SHARPS_EMAIL,
       process.env.SECONDARY_EMAIL_RECIPIENT,
     ],
-    from: process.env.THREE_SHARPS_EMAIL,
+    from: {
+      email: process.env.THREE_SHARPS_EMAIL,
+      name: "Three Sharps JavaScript Consulting",
+    },
     subject: `Three Sharps Website Inquiry: ${subject}`,
     text: emailText,
     html: emailHtml,

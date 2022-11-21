@@ -14,7 +14,7 @@ export function Contact({
 }) {
   const initialValues: EmailData = {
     originatorEmail: "",
-    name: "",
+    originatorName: "",
     subject: "",
     body: "",
   };
@@ -52,10 +52,11 @@ export function Contact({
             required
             label="Name"
             placeholder="Jane Doe"
-            {...form.getInputProps("name")}
+            {...form.getInputProps("originatorName")}
           />
 
           <TextInput
+            mt={15}
             required
             label="Email"
             placeholder="your@email.com"
@@ -63,13 +64,15 @@ export function Contact({
           />
 
           <TextInput
+            mt={15}
             required
-            label="What can I help you with?"
+            label="What can I help with?"
             placeholder="what you need, in a nutshell"
             {...form.getInputProps("subject")}
           />
 
           <Textarea
+            mt={15}
             required
             label="More details"
             placeholder="the nitty gritty"
