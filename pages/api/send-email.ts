@@ -4,8 +4,9 @@ import { EmailData, sendEmail } from "@/utils/email";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {
-    const { name, fromEmail, subject, body }: EmailData = req.body;
-    await sendEmail({ name, fromEmail, subject, body });
+    const { originatorName, originatorEmail, subject, body }: EmailData =
+      req.body.data;
+    await sendEmail({ originatorName, originatorEmail, subject, body });
     return res.status(200).end();
   }
   return res.status(404).json({
