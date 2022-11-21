@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { Alert, Box, Button, Group, Textarea, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import * as Sentry from "@sentry/nextjs";
 import { IconAlertCircle } from "@tabler/icons";
 import axios from "axios";
 import {
@@ -48,24 +49,24 @@ export function Contact({
     }
 
     try {
-      console.log("VALUES", values);
-      const response = await axios.post(
+      await axios.post(
         `${process.env.NEXT_PUBLIC_SERVER_ROOT_URL}/api/send-email`,
         {
           headers: { "Content-Type": "application/json" },
           data: values,
         },
       );
-      console.log("submitted", response);
     } catch (error: unknown) {
-      // TODO: sentry
-      console.error("could not submit form", error);
+      Sentry.captureException(`FAILURE: Could not submit mail form
+      Form values: ${values}
+      ---
+      Error: ${error}`);
     }
   };
 
   const handleReCaptchaVerify = useCallback(async (): Promise<boolean> => {
     if (!executeRecaptcha) {
-      console.log("Execute recaptcha not yet available");
+      Sentry.captureException(`Recaptcha invoked before execute was available`);
       return false;
     }
 
@@ -76,9 +77,14 @@ export function Contact({
       { headers: { "Content-Type": "application/json" }, data: { token } },
     );
 
-    console.log("** recaptcha score", response.data.score);
     const recaptchaVerified =
       response.data.success && response.data.score >= RECAPTCHA_SCORE_THRESHOLD;
+
+    if (!recaptchaVerified) {
+      Sentry.captureException(
+        `RECAPTCHA FAILED with score ${response.data.score}`,
+      );
+    }
 
     return recaptchaVerified;
   }, [executeRecaptcha]);

@@ -1,3 +1,4 @@
+import * as Sentry from "@sentry/nextjs";
 import axios from "axios";
 
 const RECAPTCHA_VERIFICATION_URL =
@@ -5,8 +6,10 @@ const RECAPTCHA_VERIFICATION_URL =
 
 export const verifyRecaptcha = async (token: string) => {
   if (!process.env.RECAPTCHA_SECRET_KEY) {
-    // TODO Sentry
-    console.error("no secret key");
+    Sentry.captureException(
+      "Unable to verify recaptcha; RECAPTCHA_SECRET_KEY not found in env vars",
+    );
+    return {};
   }
 
   const url = `${RECAPTCHA_VERIFICATION_URL}?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${token}`;
@@ -18,8 +21,10 @@ export const verifyRecaptcha = async (token: string) => {
   });
 
   if (!response.data.success) {
-    // TODO: sentry
-    console.error("RECAPTCHA FAILED", response.data.error_codes);
+    Sentry.captureException(
+      "RECAPTCHA VERIFICATION FAILED",
+      response.data.error_codes,
+    );
   }
 
   return response.data;

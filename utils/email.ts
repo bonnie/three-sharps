@@ -2,6 +2,7 @@
 // https://github.com/sendgrid/sendgrid-nodejs
 
 import sgMail from "@sendgrid/mail";
+import * as Sentry from "@sentry/nextjs";
 
 const THANK_YOU_MESSAGE =
   "Thank you for contacting Three Sharps JavaScript consulting! We will get back to you regarding your inquiry as soon as we can.";
@@ -20,13 +21,19 @@ export const sendEmail = async ({
   body,
 }: EmailData) => {
   if (!process.env.SENDGRID_API_KEY) {
-    // TODO: Sentry
-    console.error("NO SENDGRID KEY");
+    Sentry.captureException(
+      "Could not find environment variable SENDGRID_API_KEY. Cannot send email from form",
+    );
+    // eslint-disable-next-line no-console
+    console.error("NO SENDGRID KEY env var");
     return;
   }
 
   if (!process.env.THREE_SHARPS_EMAIL) {
-    // TODO: Sentry
+    Sentry.captureException(
+      "Could not find environment variable THREE_SHARPS_EMAIL. Cannot send email from form",
+    );
+    // eslint-disable-next-line no-console
     console.error("NO THREE_SHARPS_EMAIL env var");
     return;
   }
@@ -59,13 +66,20 @@ export const sendEmail = async ({
     // @ts-ignore because the type for msg doesn't include an array for bcc, only string
     .send(msg)
     .then(() => {
-      console.log("yay, it worked!");
-      // TODO: Sentry
+      Sentry.captureMessage(`message sent from ${originatorEmail}`, "info");
     })
     .catch((error: sgMail.ResponseError) => {
-      // TODO: sentry
-      console.error(error);
       // @ts-ignore because sgMail.response error types `body` as a string
-      console.error(error?.response?.body?.errors);
+      const sendgridErrors = error?.response?.body?.errors;
+
+      Sentry.captureException(`EMAIL FAILED
+      Sendgrid errors: ${sendgridErrors}
+      -----
+      originatorName: ${originatorName}
+      originatorEmail: ${originatorEmail}
+      subject: ${subject}
+      body: ${body}
+      -----
+      error details: ${error}`);
     });
 };
