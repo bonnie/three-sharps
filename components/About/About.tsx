@@ -21,11 +21,7 @@ export function About({
   return (
     <Wrapper>
       <>
-        <Text
-          className={`${classes.aboutText} ${classes.majorText}`}
-          size="xl"
-          mt="xl"
-        >
+        <Text className={`${classes.aboutText} ${classes.majorText}`} size="xl">
           Three Sharps JavaScript Consulting is{" "}
           <Anchor href="https://bonnie.dev">Bonnie Schulkin</Anchor>.
         </Text>
