@@ -19,7 +19,7 @@ export function ExpertiseCard({
   imgWidth?: string;
 }) {
   return (
-    <Paper shadow="xs" radius="md" p="md">
+    <Paper shadow="sm" radius="md" p="md">
       <Anchor size="xl" href={link} target="_blank">
         <Box
           sx={{

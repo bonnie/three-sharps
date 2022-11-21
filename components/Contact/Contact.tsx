@@ -49,6 +49,7 @@ export function Contact({
       <Box sx={{ maxWidth: 500 }} mx="auto">
         <form onSubmit={form.onSubmit(handleSubmit)}>
           <TextInput
+            size="lg"
             required
             label="Name"
             placeholder="Jane Doe"
@@ -56,6 +57,7 @@ export function Contact({
           />
 
           <TextInput
+            size="lg"
             mt={15}
             required
             label="Email"
@@ -64,18 +66,20 @@ export function Contact({
           />
 
           <TextInput
+            size="lg"
             mt={15}
             required
             label="What can I help with?"
-            placeholder="what you need, in a nutshell"
+            placeholder="what you need, in a few words"
             {...form.getInputProps("subject")}
           />
 
           <Textarea
+            size="lg"
             mt={15}
             required
             label="More details"
-            placeholder="the nitty gritty"
+            placeholder="tell me about your timeframe, your tech stack, or other relevant details"
             autosize
             minRows={4}
             maxRows={16}

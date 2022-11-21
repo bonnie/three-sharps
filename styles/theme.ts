@@ -42,6 +42,13 @@ const lightColorScheme: MantineThemeOverride = {
         },
       }),
     },
+    Paper: {
+      styles: () => ({
+        root: {
+          backgroundColor: "#ffffff",
+        },
+      }),
+    },
   },
 };
 
@@ -69,6 +76,13 @@ const darkColorScheme: MantineThemeOverride = {
         root: {
           color: theme.colors.blue[2],
           fontWeight: 600,
+        },
+      }),
+    },
+    Paper: {
+      styles: (theme) => ({
+        root: {
+          backgroundColor: theme.colors.gray[9],
         },
       }),
     },

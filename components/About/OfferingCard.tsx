@@ -12,7 +12,7 @@ export function OfferingCard({
 }) {
   return (
     // @ts-ignore  Paper doesn't accept 'align' but it has an effect
-    <Paper shadow="xs" radius="md" p="md" align="center">
+    <Paper shadow="sm" radius="md" p="md" align="center">
       <ThemeIcon radius="xl" size="xl" color={color}>
         <Icon />
       </ThemeIcon>
