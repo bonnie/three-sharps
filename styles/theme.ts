@@ -68,7 +68,13 @@ const darkColorScheme: MantineThemeOverride = {
       "#5c8ab0",
     ],
   },
-  defaultGradient: { from: "lightBlue", to: "cyan", deg: 45 },
+  defaultGradient: {
+    // @ts-ignore object is not undefined
+    from: theme.colors.blue[2],
+    // @ts-ignore object is not undefined
+    to: theme.colors.blue[4],
+    deg: 45,
+  },
   components: {
     Anchor: {
       // Subscribe to theme and component params
@@ -82,7 +88,7 @@ const darkColorScheme: MantineThemeOverride = {
     Paper: {
       styles: (theme) => ({
         root: {
-          backgroundColor: theme.colors.gray[9],
+          backgroundColor: theme.colors.gray[8],
         },
       }),
     },

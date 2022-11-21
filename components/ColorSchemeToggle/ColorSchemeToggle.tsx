@@ -16,7 +16,7 @@ export function ColorSchemeToggle() {
       variant="gradient"
     >
       {colorScheme === "dark" ? (
-        <IconSun size={24} stroke={1.5} />
+        <IconSun size={24} stroke={2} />
       ) : (
         <IconMoonStars size={20} stroke={1.5} />
       )}

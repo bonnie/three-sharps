@@ -42,10 +42,13 @@ export function About({
             link="https://reactjs.org"
             imgSrc="/logos/react.svg"
           />
+          {/* TODO: center vertically */}
           <ExpertiseCard
-            title="React Query"
-            link="https://tanstack.com/query/v4"
-            imgSrc={null}
+            title=""
+            link="https://nextjs.org/"
+            imgSrc={`/logos/next-${colorScheme}.svg`}
+            imgAlt="NextJS"
+            imgWidth="5em"
           />
           <ExpertiseCard
             title="Testing Library"
@@ -66,7 +69,7 @@ export function About({
           size="xl"
           className={`${classes.aboutText} ${classes.majorText}`}
         >
-          Choose from...
+          Consulting Options
         </Text>
         <SimpleGrid cols={2} className={classes.aboutText}>
           <OfferingCard

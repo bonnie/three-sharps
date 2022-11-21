@@ -9,7 +9,7 @@ export const useStyles = createStyles((theme) => ({
     transitionDuration: "0.3s",
     color:
       theme.colorScheme === "dark"
-        ? theme.colors.blue[1]
+        ? theme.colors.blue[9]
         : theme.colors.blue[0],
 
     "&:hover": {
