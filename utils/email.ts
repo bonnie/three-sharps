@@ -4,7 +4,7 @@
 import sgMail from "@sendgrid/mail";
 
 const THANK_YOU_MESSAGE =
-  "Thank you for contacting Three Sharps JavaScript consulting! We will get back to you regarding the matter below as soon as we can.";
+  "Thank you for contacting Three Sharps JavaScript consulting! We will get back to you regarding your inquiry as soon as we can.";
 
 export type EmailData = {
   originatorName: string;

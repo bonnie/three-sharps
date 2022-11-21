@@ -77,7 +77,6 @@ export function Contact({
           <Textarea
             size="lg"
             mt={15}
-            required
             label="More details"
             placeholder="tell me about your timeframe, your tech stack, or other relevant details"
             autosize
