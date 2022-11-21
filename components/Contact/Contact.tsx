@@ -2,9 +2,11 @@
 import { Box, Button, Group, Textarea, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import axios from "axios";
-import { FunctionComponent, PropsWithChildren } from "react";
+import { FunctionComponent, PropsWithChildren, useCallback } from "react";
+import { GoogleReCaptcha, useGoogleReCaptcha } from "react-google-recaptcha-v3";
 
 import { EmailData } from "@/utils/email";
+
 // TODO: recaptcha
 
 export function Contact({
@@ -12,6 +14,8 @@ export function Contact({
 }: {
   Wrapper: FunctionComponent<PropsWithChildren<{}>>;
 }) {
+  const { executeRecaptcha } = useGoogleReCaptcha();
+
   const initialValues: EmailData = {
     originatorEmail: "",
     originatorName: "",
@@ -43,6 +47,16 @@ export function Contact({
       console.error("could not submit form", error);
     }
   };
+
+  const handleReCaptchaVerify = useCallback(async () => {
+    if (!executeRecaptcha) {
+      console.log("Execute recaptcha not yet available");
+      return;
+    }
+
+    const token = await executeRecaptcha("yourAction");
+    console.log("RECAPTCHA TOKEN", token);
+  }, [executeRecaptcha]);
 
   return (
     <Wrapper>
@@ -85,7 +99,9 @@ export function Contact({
             {...form.getInputProps("body")}
           />
           <Group position="right" mt="md">
-            <Button type="submit">Send message</Button>
+            <Button onClick={handleReCaptchaVerify} type="submit">
+              Send message
+            </Button>
           </Group>
         </form>
       </Box>

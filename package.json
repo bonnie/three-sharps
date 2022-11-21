@@ -30,6 +30,7 @@
     "next": "latest",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
+    "react-google-recaptcha-v3": "^1.10.0",
     "save-dev": "^0.0.1-security",
     "typescript-eslint": "^0.0.1-alpha.0"
   },

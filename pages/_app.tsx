@@ -11,6 +11,7 @@ import { getCookie, setCookie } from "cookies-next";
 import NextApp, { AppContext, AppProps } from "next/app";
 import Head from "next/head";
 import { useState } from "react";
+import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 
 import { colorSchemes, theme } from "@/styles/theme";
 
@@ -45,20 +46,24 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
         <link rel="shortcut icon" href="/favicon.svg" />
       </Head>
 
-      <ColorSchemeProvider
-        colorScheme={colorScheme}
-        toggleColorScheme={toggleColorScheme}
+      <GoogleReCaptchaProvider
+        reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? ""}
       >
-        <MantineProvider
-          theme={{ ...theme, ...colorSchemes[colorScheme] }}
-          withGlobalStyles
-          withNormalizeCSS
+        <ColorSchemeProvider
+          colorScheme={colorScheme}
+          toggleColorScheme={toggleColorScheme}
         >
-          <NotificationsProvider>
-            <Component {...pageProps} />
-          </NotificationsProvider>
-        </MantineProvider>
-      </ColorSchemeProvider>
+          <MantineProvider
+            theme={{ ...theme, ...colorSchemes[colorScheme] }}
+            withGlobalStyles
+            withNormalizeCSS
+          >
+            <NotificationsProvider>
+              <Component {...pageProps} />
+            </NotificationsProvider>
+          </MantineProvider>
+        </ColorSchemeProvider>
+      </GoogleReCaptchaProvider>
     </>
   );
 }
