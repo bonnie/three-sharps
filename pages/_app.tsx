@@ -52,7 +52,7 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
           // container id for badge
           element: "recaptcha-badge",
           parameters: {
-            badge: "bottomleft",
+            badge: "inline",
             theme: "dark",
           },
         }}

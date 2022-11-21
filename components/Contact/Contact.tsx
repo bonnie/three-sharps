@@ -1,13 +1,19 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { Box, Button, Group, Textarea, TextInput } from "@mantine/core";
+import { Alert, Box, Button, Group, Textarea, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import { IconAlertCircle } from "@tabler/icons";
 import axios from "axios";
-import { FunctionComponent, PropsWithChildren, useCallback } from "react";
-import { GoogleReCaptcha, useGoogleReCaptcha } from "react-google-recaptcha-v3";
+import {
+  FunctionComponent,
+  PropsWithChildren,
+  useCallback,
+  useState,
+} from "react";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 
 import { EmailData } from "@/utils/email";
 
-// TODO: recaptcha
+const RECAPTCHA_SCORE_THRESHOLD = 0.6;
 
 export function Contact({
   Wrapper,
@@ -15,6 +21,7 @@ export function Contact({
   Wrapper: FunctionComponent<PropsWithChildren<{}>>;
 }) {
   const { executeRecaptcha } = useGoogleReCaptcha();
+  const [recaptchaFailed, setRecaptaFailed] = useState(false);
 
   const initialValues: EmailData = {
     originatorEmail: "",
@@ -32,39 +39,48 @@ export function Contact({
   });
 
   const handleSubmit = async (values: EmailData) => {
-    const recaptchaResult = await handleReCaptchaVerify();
-    console.log("RECAPTCHA RESULT", recaptchaResult);
+    setRecaptaFailed(false);
 
-    // try {
-    //   console.log("VALUES", values);
-    //   const response = await axios.post(
-    //     `${process.env.NEXT_PUBLIC_SERVER_ROOT_URL}/api/send-email`,
-    //     {
-    //       headers: { "Content-Type": "application/json" },
-    //       data: values,
-    //     },
-    //   );
-    //   console.log("submitted", response);
-    // } catch (error: unknown) {
-    //   // TODO: sentry
-    //   console.error("could not submit form", error);
-    // }
-  };
-
-  const handleReCaptchaVerify = useCallback(async () => {
-    if (!executeRecaptcha) {
-      console.log("Execute recaptcha not yet available");
+    const recaptchaVerified = await handleReCaptchaVerify();
+    if (!recaptchaVerified) {
+      setRecaptaFailed(true);
       return;
     }
 
-    const token = await executeRecaptcha("yourAction");
+    try {
+      console.log("VALUES", values);
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_SERVER_ROOT_URL}/api/send-email`,
+        {
+          headers: { "Content-Type": "application/json" },
+          data: values,
+        },
+      );
+      console.log("submitted", response);
+    } catch (error: unknown) {
+      // TODO: sentry
+      console.error("could not submit form", error);
+    }
+  };
+
+  const handleReCaptchaVerify = useCallback(async (): Promise<boolean> => {
+    if (!executeRecaptcha) {
+      console.log("Execute recaptcha not yet available");
+      return false;
+    }
+
+    const token = await executeRecaptcha("sendEmail");
 
     const response = await axios.post(
       `${process.env.NEXT_PUBLIC_SERVER_ROOT_URL}/api/process-recaptcha`,
       { headers: { "Content-Type": "application/json" }, data: { token } },
     );
 
-    console.log("RECAPTCHA RESULT", response.data);
+    console.log("** recaptcha score", response.data.score);
+    const recaptchaVerified =
+      response.data.success && response.data.score >= RECAPTCHA_SCORE_THRESHOLD;
+
+    return recaptchaVerified;
   }, [executeRecaptcha]);
 
   return (
@@ -107,11 +123,23 @@ export function Contact({
             maxRows={16}
             {...form.getInputProps("body")}
           />
+          {recaptchaFailed ? (
+            <Alert
+              mt="lg"
+              icon={<IconAlertCircle size={16} />}
+              title="Recaptcha failed!"
+              color="red"
+            >
+              Please try again.
+            </Alert>
+          ) : null}
           <Group position="right" mt="md">
             <Button type="submit">Send message</Button>
           </Group>
         </form>
-        <div id="recaptcha-badge" />
+        <Box mt="xl">
+          <div id="recaptcha-badge" />
+        </Box>
       </Box>
     </Wrapper>
   );

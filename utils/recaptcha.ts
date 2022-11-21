@@ -4,8 +4,8 @@ const RECAPTCHA_VERIFICATION_URL =
   "https://www.google.com/recaptcha/api/siteverify";
 
 export const verifyRecaptcha = async (token: string) => {
-  console.log("recaptcha secret key", process.env.RECAPTCHA_SECRET_KEY);
   if (!process.env.RECAPTCHA_SECRET_KEY) {
+    // TODO Sentry
     console.error("no secret key");
   }
 
@@ -17,6 +17,10 @@ export const verifyRecaptcha = async (token: string) => {
     },
   });
 
-  console.log("RESPONSE", response.data);
+  if (!response.data.success) {
+    // TODO: sentry
+    console.error("RECAPTCHA FAILED", response.data.error_codes);
+  }
+
   return response.data;
 };
