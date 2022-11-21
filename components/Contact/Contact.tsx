@@ -32,20 +32,23 @@ export function Contact({
   });
 
   const handleSubmit = async (values: EmailData) => {
-    try {
-      console.log("VALUES", values);
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_SERVER_ROOT_URL}/api/send-email`,
-        {
-          headers: { "Content-Type": "application/json" },
-          data: values,
-        },
-      );
-      console.log("submitted", response);
-    } catch (error: unknown) {
-      // TODO: sentry
-      console.error("could not submit form", error);
-    }
+    const recaptchaResult = await handleReCaptchaVerify();
+    console.log("RECAPTCHA RESULT", recaptchaResult);
+
+    // try {
+    //   console.log("VALUES", values);
+    //   const response = await axios.post(
+    //     `${process.env.NEXT_PUBLIC_SERVER_ROOT_URL}/api/send-email`,
+    //     {
+    //       headers: { "Content-Type": "application/json" },
+    //       data: values,
+    //     },
+    //   );
+    //   console.log("submitted", response);
+    // } catch (error: unknown) {
+    //   // TODO: sentry
+    //   console.error("could not submit form", error);
+    // }
   };
 
   const handleReCaptchaVerify = useCallback(async () => {
@@ -55,7 +58,13 @@ export function Contact({
     }
 
     const token = await executeRecaptcha("yourAction");
-    console.log("RECAPTCHA TOKEN", token);
+
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_SERVER_ROOT_URL}/api/process-recaptcha`,
+      { headers: { "Content-Type": "application/json" }, data: { token } },
+    );
+
+    console.log("RECAPTCHA RESULT", response.data);
   }, [executeRecaptcha]);
 
   return (
@@ -99,11 +108,10 @@ export function Contact({
             {...form.getInputProps("body")}
           />
           <Group position="right" mt="md">
-            <Button onClick={handleReCaptchaVerify} type="submit">
-              Send message
-            </Button>
+            <Button type="submit">Send message</Button>
           </Group>
         </form>
+        <div id="recaptcha-badge" />
       </Box>
     </Wrapper>
   );
