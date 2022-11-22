@@ -25,7 +25,7 @@ export function AnimatedLogo() {
     <div
       style={{
         width: 500,
-        height: 320,
+        maxWidth: "75%",
         marginLeft: "auto",
         marginRight: "auto",
       }}

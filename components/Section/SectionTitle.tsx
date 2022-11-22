@@ -6,10 +6,10 @@ import { Box, Title } from "@mantine/core";
 import { useStyles } from "./SectionTitle.styles";
 
 export function SectionTitle({ title }: { title: string }) {
-  const { classes } = useStyles();
+  const { classes, cx } = useStyles();
 
   return (
-    <Box className={`${classes.titleText} ${classes.titleBorder}`}>
+    <Box className={cx(classes.titleText, classes.titleBorder)} mt={10}>
       <Title variant="gradient">{title}</Title>
     </Box>
   );

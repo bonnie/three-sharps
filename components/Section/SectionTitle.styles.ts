@@ -16,6 +16,11 @@ export const useStyles = createStyles((theme) => ({
       theme.colorScheme === "dark"
         ? theme.colors.blue[2]
         : theme.colors.blue[7],
+
+    // Dynamic media queries, define breakpoints in theme, use anywhere
+    [`@media (max-width: ${theme.breakpoints.xs}px)`]: {
+      paddingLeft: 0,
+    },
   },
 
   titleBorder: {

@@ -2,7 +2,6 @@ import { createStyles } from "@mantine/core";
 
 export const useStyles = createStyles((theme) => ({
   link: {
-    width: 100,
     height: theme.other.navHeight,
     borderRadius: theme.radius.md,
     display: "flex",
@@ -22,6 +21,14 @@ export const useStyles = createStyles((theme) => ({
         theme.colorScheme === "dark"
           ? theme.colors.dark[5]
           : theme.colors.gray[0],
+      textDecoration: "none",
+    },
+    "&:focus": {
+      outline: "none",
     },
   },
+  textLink: {
+    width: 100,
+  },
+  iconLink: {},
 }));

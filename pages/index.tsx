@@ -1,5 +1,5 @@
 import { AppShell, Box, useMantineTheme } from "@mantine/core";
-import { IconLego, IconMail } from "@tabler/icons";
+import { IconInfoCircle, IconMail } from "@tabler/icons";
 
 import { About } from "@/components/About/About";
 import { Contact } from "@/components/Contact/Contact";
@@ -21,13 +21,11 @@ export default function HomePage() {
   const navData = {
     about: {
       title: aboutNavTitle,
-      icon: IconLego,
-      scrollIntoView: aboutNavData.scrollIntoView,
+      icon: IconInfoCircle,
     },
     contact: {
       title: contactNavTitle,
       icon: IconMail,
-      scrollIntoView: contactNavData.scrollIntoView,
     },
   };
 
