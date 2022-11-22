@@ -9,7 +9,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(200).json(recaptchaResponse);
   }
   return res.status(404).json({
-    // TODO: add error handling with Sentry
     error: {
       code: "not_found",
       message:

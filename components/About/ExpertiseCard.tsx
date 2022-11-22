@@ -1,5 +1,7 @@
 import { Anchor, Box, Image, Paper } from "@mantine/core";
 
+import { useMobileWidth } from "@/hooks/useMobileWidth";
+
 ExpertiseCard.defaultProps = {
   imgAlt: "",
   imgWidth: "2em",
@@ -18,9 +20,11 @@ export function ExpertiseCard({
   imgAlt?: string;
   imgWidth?: string;
 }) {
+  const mobileWidth = useMobileWidth();
+
   return (
     <Paper shadow="sm" radius="md" p="md">
-      <Anchor size="xl" href={link} target="_blank">
+      <Anchor size={mobileWidth ? "md" : "xl"} href={link} target="_blank">
         <Box
           sx={{
             display: "flex",

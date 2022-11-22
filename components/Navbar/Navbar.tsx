@@ -55,6 +55,7 @@ export function ThreeSharpsNavbar({
               src="/logo/sharps.svg"
               alt="Three musical sharp signs in the configuration for A major"
               onClick={returnToTop}
+              sx={{ cursor: "pointer" }}
             />
           </Center>
           <Divider orientation="vertical" />

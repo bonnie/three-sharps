@@ -1,6 +1,7 @@
 import { Anchor, ThemeIcon } from "@mantine/core";
-import { useMediaQuery } from "@mantine/hooks";
 import { TablerIcon } from "@tabler/icons";
+
+import { useMobileWidth } from "@/hooks/useMobileWidth";
 
 import { useStyles } from "./NavbarLink.styles";
 
@@ -10,20 +11,19 @@ interface NavbarLinkProps {
 }
 
 export function NavbarLink({ Icon, label }: NavbarLinkProps) {
-  const wideEnough = useMediaQuery("(min-width: 500px)");
-
   const { classes, cx } = useStyles();
+  const mobileWidth = useMobileWidth();
 
+  // TODO: center text
   return (
-    // TODO: center text
     <Anchor
       className={cx(
         classes.link,
-        wideEnough ? classes.textLink : classes.iconLink,
+        mobileWidth ? classes.iconLink : classes.textLink,
       )}
       href={`#${label}`}
     >
-      {wideEnough || !Icon ? (
+      {!mobileWidth || !Icon ? (
         label
       ) : (
         <ThemeIcon radius="xl" size="lg" color="cyan">
