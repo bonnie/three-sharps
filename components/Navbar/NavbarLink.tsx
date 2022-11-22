@@ -14,7 +14,6 @@ export function NavbarLink({ Icon, label }: NavbarLinkProps) {
   const { classes, cx } = useStyles();
   const mobileWidth = useMobileWidth();
 
-  // TODO: center text
   return (
     <Anchor
       className={cx(

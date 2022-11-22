@@ -4,8 +4,7 @@ export const useStyles = createStyles((theme) => ({
   link: {
     height: theme.other.navHeight,
     borderRadius: theme.radius.md,
-    display: "flex",
-    alignItems: "center",
+    textAlign: "center",
     positionContent: "center",
     align: "center",
     padding: "10px",
@@ -28,7 +27,7 @@ export const useStyles = createStyles((theme) => ({
     },
   },
   textLink: {
-    width: 100,
+    width: 110,
   },
   iconLink: {},
 }));

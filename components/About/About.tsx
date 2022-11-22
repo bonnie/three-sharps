@@ -42,7 +42,6 @@ export function About({
             link="https://reactjs.org"
             imgSrc="/logos/react.svg"
           />
-          {/* TODO: center vertically */}
           <ExpertiseCard
             title=""
             link="https://nextjs.org/"

@@ -36,7 +36,7 @@ export function ExpertiseCard({
             <Image
               src={imgSrc}
               alt={imgAlt ?? title}
-              sx={{ maxWidth: imgWidth }}
+              sx={{ maxWidth: imgWidth, display: "inline-block" }}
               mr={10}
             />
           ) : null}
