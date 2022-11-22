@@ -43,11 +43,9 @@ export function About({
             imgSrc="/logos/react.svg"
           />
           <ExpertiseCard
-            title=""
+            title="Next.js"
             link="https://nextjs.org/"
-            imgSrc={`/logos/next-${colorScheme}.svg`}
-            imgAlt="NextJS"
-            imgWidth="5em"
+            imgSrc="/logos/next-button.svg"
           />
           <ExpertiseCard
             title="Testing Library"

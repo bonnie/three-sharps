@@ -140,7 +140,9 @@ export function Contact({
             </Alert>
           ) : null}
           <Group position="right" mt="md">
-            <Button type="submit">Send message</Button>
+            <Button size="lg" type="submit">
+              Send message
+            </Button>
           </Group>
         </form>
         <Box mt="xl">

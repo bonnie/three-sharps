@@ -2,11 +2,8 @@ import { createStyles } from "@mantine/core";
 
 export const useStyles = createStyles((theme) => ({
   link: {
-    height: theme.other.navHeight,
     borderRadius: theme.radius.md,
     textAlign: "center",
-    positionContent: "center",
-    align: "center",
     padding: "10px",
     fontFamily: theme.headings.fontFamily,
     fontSize: 24,
@@ -27,7 +24,10 @@ export const useStyles = createStyles((theme) => ({
     },
   },
   textLink: {
+    height: theme.other.navHeight,
     width: 110,
   },
-  iconLink: {},
+  iconLink: {
+    paddingTop: "20px",
+  },
 }));
