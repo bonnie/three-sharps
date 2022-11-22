@@ -5,7 +5,7 @@ export function useReturnToTop() {
   const [, scrollTo] = useWindowScroll();
   return () => {
     if (reducedMotion) {
-      // TODO: don't animate
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
     } else {
       scrollTo({ x: 0, y: 0 });
     }

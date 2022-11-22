@@ -1,4 +1,4 @@
-import { Anchor, Box, Image, Paper } from "@mantine/core";
+import { Anchor, Center, Image, Paper } from "@mantine/core";
 
 import { useMobileWidth } from "@/hooks/useMobileWidth";
 
@@ -25,23 +25,17 @@ export function ExpertiseCard({
   return (
     <Paper shadow="sm" radius="md" p="md">
       <Anchor size={mobileWidth ? "md" : "xl"} href={link} target="_blank">
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
+        <Center>
           {imgSrc ? (
             <Image
               src={imgSrc}
               alt={imgAlt ?? title}
-              sx={{ maxWidth: imgWidth, display: "inline-block" }}
+              sx={{ maxWidth: imgWidth }}
               mr={10}
             />
           ) : null}
-          {title}
-        </Box>
+          {title || null}
+        </Center>
       </Anchor>
     </Paper>
   );
