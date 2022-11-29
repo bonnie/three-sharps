@@ -46,6 +46,7 @@ export function Contact({
     setMailInProgress(true);
 
     const recaptchaVerified = await handleReCaptchaVerify(values);
+
     if (!recaptchaVerified) {
       setRecaptchaFailed(true);
       return;
@@ -126,9 +127,7 @@ export function Contact({
           display={showSuccessAlert}
           onClose={() => setShowSuccessAlert(false)}
         />
-        <Box mt="xl">
-          <div id="recaptcha-badge" />
-        </Box>
+        <div id="recaptcha-badge" />
       </Box>
     </Wrapper>
   );
