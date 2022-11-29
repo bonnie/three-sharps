@@ -1,17 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import {
-  Alert,
-  Box,
-  Button,
-  Group,
-  Notification,
-  Textarea,
-  TextInput,
-} from "@mantine/core";
+import { Box, Button, Group, Textarea, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import * as Sentry from "@sentry/nextjs";
-import { IconAlertCircle, IconCheck } from "@tabler/icons";
-import axios from "axios";
 import {
   FunctionComponent,
   PropsWithChildren,
@@ -22,7 +12,9 @@ import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 
 import { EmailData } from "@/utils/email";
 
-const RECAPTCHA_SCORE_THRESHOLD = 0.6;
+import { RecaptchaWarning } from "./RecaptchaWarning";
+import { SuccessToast } from "./SuccessToast";
+import { sendEmailRequest, sendTokenValidationRequest } from "./utils";
 
 export function Contact({
   Wrapper,
@@ -30,7 +22,7 @@ export function Contact({
   Wrapper: FunctionComponent<PropsWithChildren<{}>>;
 }) {
   const { executeRecaptcha } = useGoogleReCaptcha();
-  const [recaptchaFailed, setRecaptaFailed] = useState(false);
+  const [recaptchaFailed, setRecaptchaFailed] = useState(false);
   const [mailInProgress, setMailInProgress] = useState(false);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
@@ -50,29 +42,17 @@ export function Contact({
   });
 
   const handleSubmit = async (values: EmailData) => {
-    setRecaptaFailed(false);
+    setRecaptchaFailed(false);
     setMailInProgress(true);
 
     const recaptchaVerified = await handleReCaptchaVerify(values);
     if (!recaptchaVerified) {
-      setRecaptaFailed(true);
+      setRecaptchaFailed(true);
       return;
     }
 
-    try {
-      await axios.post(
-        `${process.env.NEXT_PUBLIC_SERVER_ROOT_URL}/api/send-email`,
-        {
-          headers: { "Content-Type": "application/json" },
-          data: values,
-        },
-      );
-    } catch (error: unknown) {
-      Sentry.captureException(`FAILURE: Could not submit mail form
-      Form values: ${values}
-      ---
-      Error: ${error}`);
-    }
+    const mailSuccess = await sendEmailRequest(values);
+    if (mailSuccess) setShowSuccessAlert(true);
 
     setMailInProgress(false);
   };
@@ -87,37 +67,9 @@ export function Contact({
       }
 
       const token = await executeRecaptcha("sendEmail");
+      const tokenIsValid = await sendTokenValidationRequest(token, values);
 
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_SERVER_ROOT_URL}/api/process-recaptcha`,
-        { headers: { "Content-Type": "application/json" }, data: { token } },
-      );
-
-      if (!response.data.success) {
-        Sentry.captureException(
-          `RECAPTCHA FAILED with error code(s) ${response.data[
-            "error-codes"
-          ].toString()}`,
-          { tags: values },
-        );
-        setMailInProgress(false);
-        return false;
-      }
-
-      const recaptchaVerified =
-        response.data.score >= RECAPTCHA_SCORE_THRESHOLD;
-
-      if (recaptchaVerified) {
-        setShowSuccessAlert(true);
-      } else {
-        setMailInProgress(false);
-        Sentry.captureException(
-          `RECAPTCHA VERIFICATION FAILED with score ${response.data.score}`,
-          { tags: values },
-        );
-      }
-
-      return recaptchaVerified;
+      return tokenIsValid;
     },
     [executeRecaptcha],
   );
@@ -162,15 +114,7 @@ export function Contact({
             maxRows={16}
             {...form.getInputProps("body")}
           />
-          {recaptchaFailed ? (
-            <Alert
-              icon={<IconAlertCircle size={16} />}
-              title="Recaptcha failed!"
-              color="red"
-            >
-              Please refresh the page and try again.
-            </Alert>
-          ) : null}
+          <RecaptchaWarning display={recaptchaFailed} />
 
           <Group position="right" mt="md">
             <Button size="lg" type="submit" loading={mailInProgress}>
@@ -178,20 +122,10 @@ export function Contact({
             </Button>
           </Group>
         </form>
-        {showSuccessAlert ? (
-          <Notification
-            mt={10}
-            icon={<IconCheck size={18} />}
-            color="teal"
-            closeButtonProps={{ "aria-label": "Hide notification" }}
-            onClose={() => setShowSuccessAlert(false)}
-          >
-            Message sent!
-          </Notification>
-        ) : null}
-        <Box mt="xl">
-          <div id="recaptcha-badge" />
-        </Box>
+        <SuccessToast
+          display={showSuccessAlert}
+          onClose={() => setShowSuccessAlert(false)}
+        />
       </Box>
     </Wrapper>
   );

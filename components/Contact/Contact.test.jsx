@@ -18,6 +18,8 @@ test("Error display and no submit for invalid email", async () => {
     const input = screen.getByLabelText(fieldLabel);
     submitButton.click();
 
+    // nothing should have been submitted ("fill out field" message not visible from here)
+
     // fill out the field
     user.type(input, "type something");
   });
