@@ -49,11 +49,11 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
       <GoogleReCaptchaProvider
         reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? ""}
         container={{
-          // container id for badge
-          element: "recaptcha-badge",
+          // don't need to render inside custom element, but want to take advantage of options
+          element: "recpatcha-placeholder",
           parameters: {
             badge: "bottomleft",
-            theme: "dark",
+            theme: colorScheme === "light" ? "light" : "dark",
           },
         }}
       >

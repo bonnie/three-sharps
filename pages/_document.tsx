@@ -26,6 +26,7 @@ export default class _Document extends Document {
           />
         </Head>
         <body>
+          <div id="recpatcha-placeholder" style={{ zIndex: -1 }} />
           <Main />
           <NextScript />
         </body>

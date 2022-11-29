@@ -1,4 +1,4 @@
-import { Notification } from "@mantine/core";
+import { Notification, Text } from "@mantine/core";
 import { IconCheck } from "@tabler/icons";
 
 export function SuccessToast({
@@ -8,16 +8,23 @@ export function SuccessToast({
   display: boolean;
   onClose: () => void;
 }) {
-  return (
+  return display ? (
     <Notification
       mt={10}
-      icon={<IconCheck size={18} />}
-      color="teal"
-      closeButtonProps={{ "aria-label": "Hide notification" }}
+      icon={<IconCheck size={18} stroke="4px" />}
+      color="lime"
+      closeButtonProps={{
+        "aria-label": "Hide notification",
+        color: "lime",
+        iconSize: 20,
+        radius: "xl",
+      }}
       onClose={onClose}
-      sx={{ display: display ? "inline" : "none" }}
+      sx={{ backgroundColor: "teal" }}
     >
-      Message sent!
+      <Text size="xl" color="white">
+        Message sent!
+      </Text>
     </Notification>
-  );
+  ) : null;
 }

@@ -126,6 +126,9 @@ export function Contact({
           display={showSuccessAlert}
           onClose={() => setShowSuccessAlert(false)}
         />
+        <Box mt="xl">
+          <div id="recaptcha-badge" />
+        </Box>
       </Box>
     </Wrapper>
   );
