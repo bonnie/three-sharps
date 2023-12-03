@@ -16,8 +16,11 @@ export const sendEmailRequest = async (values: EmailData): Promise<boolean> => {
     );
     return true;
   } catch (error: unknown) {
+    const errorString =
+      error instanceof Error ? error.toString() : "unknown error";
+
     Sentry.captureException("FAILURE: Could not submit mail form via API", {
-      tags: { ...values, error: error?.toString() },
+      tags: { ...values, error: errorString },
     });
     return false;
   }
